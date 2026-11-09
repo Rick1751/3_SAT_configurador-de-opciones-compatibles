@@ -1,0 +1,8 @@
+@startuml
+rectangle "P" as P
+rectangle "NP" as N
+rectangle "NP-completos\nSAT, 3-SAT" as C
+P -[hidden]-> N
+N -[hidden]-> C
+note right of P: 2-SAT pertenece a P
+@enduml

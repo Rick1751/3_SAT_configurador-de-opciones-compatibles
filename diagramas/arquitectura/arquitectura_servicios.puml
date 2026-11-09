@@ -1,0 +1,16 @@
+@startuml
+component "formula-service" as F
+component "solver-service" as S
+component "generator-service" as G
+component "benchmark-service" as B
+component "console-app" as C
+component "charts-service\nPython" as P
+C --> F
+C --> S
+C --> G
+B --> G
+B --> S
+B --> "CSV"
+P --> "PNG"
+"CSV" --> P
+@enduml

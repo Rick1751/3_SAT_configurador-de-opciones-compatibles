@@ -1,0 +1,9 @@
+@startuml
+start
+:generar instancia con semilla;
+:calentar JVM;
+:repetir cinco veces;
+:medir nanoTime;
+:escribir CSV;
+stop
+@enduml

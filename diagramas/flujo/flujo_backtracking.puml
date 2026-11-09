@@ -1,0 +1,10 @@
+@startuml
+start
+:asignar variable;
+if (cláusula falsa?) then (sí)
+:podar;
+else (no)
+:recursar;
+endif
+stop
+@enduml

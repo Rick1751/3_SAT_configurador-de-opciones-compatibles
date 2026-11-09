@@ -1,0 +1,11 @@
+@startuml
+start
+:leer asignación;
+:evaluar cada cláusula;
+if (todas verdaderas?) then (sí)
+:SAT;
+else (no)
+:no válida;
+endif
+stop
+@enduml

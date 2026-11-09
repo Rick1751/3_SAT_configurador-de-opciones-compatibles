@@ -1,0 +1,3 @@
+@startuml
+rectangle "1. crear dos nodos por literal\n2. añadir implicaciones por cláusula\n3. calcular SCC\n4. contradicción si x y ¬x comparten SCC"
+@enduml

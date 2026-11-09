@@ -1,0 +1,10 @@
+@startuml
+start
+:leer fórmula;
+if (3 literales y rango válido?) then (sí)
+:aceptar;
+else (no)
+:mostrar motivo;
+endif
+stop
+@enduml

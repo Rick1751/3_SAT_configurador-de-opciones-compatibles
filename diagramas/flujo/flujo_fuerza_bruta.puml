@@ -1,0 +1,14 @@
+@startuml
+start
+:crear máscara;
+while (quedan máscaras?)
+:verificar asignación;
+if (SAT?) then (sí)
+stop
+else (no)
+:siguiente máscara;
+endif
+endwhile
+:UNSAT;
+stop
+@enduml

@@ -1,0 +1,3 @@
+@startuml
+rectangle "1. si cláusula falsa, podar\n2. si no quedan variables, verificar\n3. asignar F y recursar\n4. asignar V y recursar\nDominante: poda incremental"
+@enduml

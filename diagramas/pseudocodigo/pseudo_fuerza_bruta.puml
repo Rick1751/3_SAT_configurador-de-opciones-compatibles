@@ -1,0 +1,3 @@
+@startuml
+rectangle "1. para máscara=0..2^n-1\n2. construir asignación\n3. verificar\n4. devolver al encontrar; si no, UNSAT\nDominante: enumeración binaria"
+@enduml

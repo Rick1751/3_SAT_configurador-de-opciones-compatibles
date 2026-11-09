@@ -1,0 +1,3 @@
+@startuml
+rectangle "1. cláusula corta: repetir literal\n2. cláusula larga: introducir y\n3. dividir en cláusulas de tres\n4. conservar satisfacibilidad"
+@enduml

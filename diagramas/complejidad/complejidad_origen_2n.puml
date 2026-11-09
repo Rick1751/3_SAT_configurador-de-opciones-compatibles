@@ -1,0 +1,8 @@
+@startuml
+start
+:n decisiones binarias;
+:2^n hojas;
+:evaluar m cláusulas por hoja;
+:costo O(2^n * m);
+stop
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+rectangle "Encontrar: O(2^n*m)" as E
+rectangle "Verificar certificado: O(m)\ncertificado O(n)" as V
+E --> V
+@enduml

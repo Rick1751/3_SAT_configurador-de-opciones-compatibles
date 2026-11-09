@@ -1,0 +1,3 @@
+@startuml
+rectangle "1. recorrer cláusulas\n2. evaluar sus tres literales\n3. si alguna queda falsa: UNSAT\n4. devolver SAT si todas son verdaderas\nDominante: evaluación de literales"
+@enduml

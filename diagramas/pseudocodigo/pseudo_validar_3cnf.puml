@@ -1,0 +1,3 @@
+@startuml
+rectangle "1. recorrer cláusulas\n2. comprobar longitud 3\n3. comprobar literal != 0 y |literal|<=n\n4. informar repeticiones/tautologías\nDominante: validación por cláusula" 
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+start
+:mostrar menú;
+:leer opción;
+if (13?) then (sí)
+stop
+else (no)
+:ejecutar opción;
+endif
+@enduml
