@@ -1,3 +1,18 @@
 @startuml
-rectangle "1. crear dos nodos por literal\n2. añadir implicaciones por cláusula\n3. calcular SCC\n4. contradicción si x y ¬x comparten SCC"
+title 2-SAT con Kosaraju
+legend
+<font:monospaced>
+Entrada: CNF con n variables y m cláusulas de dos literales
+Salida: SAT/UNSAT y asignación
+01. crear 2n nodos: x y ¬x
+02. por (a v b), añadir ¬a -> b y ¬b -> a (2m aristas)
+03. DFS en grafo y guardar orden de finalización
+04. DFS en grafo inverso siguiendo orden inverso
+05. asignar componente a cada nodo
+06. para cada x, si comp(x)=comp(¬x), devolver UNSAT
+07. asignar x según el orden de sus componentes
+08. devolver SAT y asignación
+Dominante: dos recorridos DFS, Θ(n+m).
+</font>
+endlegend
 @enduml

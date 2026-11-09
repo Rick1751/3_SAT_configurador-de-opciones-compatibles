@@ -1,5 +1,12 @@
 @startuml
-rectangle "Encontrar: O(2^n*m)" as E
-rectangle "Verificar certificado: O(m)\ncertificado O(n)" as V
-E --> V
+title Encontrar frente a verificar
+rectangle "Encontrar asignación\nO(2^n · m)\nexplora decisiones" as E
+rectangle "Certificado: boolean[n]\nO(n) espacio" as C
+rectangle "Verificar certificado\nO(m), validación separada" as V
+E --> C
+C --> V
+note bottom of V
+La gráfica 03 mide verificarSinValidar
+después de calentar la JVM y dividir 100000 llamadas.
+end note
 @enduml

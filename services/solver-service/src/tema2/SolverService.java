@@ -15,6 +15,14 @@ public final class SolverService {
         return verificarInterno(f, a);
     }
 
+    /** Verifica sin volver a validar una fórmula que ya fue validada. */
+    public static boolean verificarSinValidar(Formula f, boolean[] a) {
+        if (a == null || a.length != f.variables) {
+            throw new IllegalArgumentException("La asignación debe tener exactamente n valores.");
+        }
+        return verificarInterno(f, a);
+    }
+
     /** Devuelve el índice de la primera cláusula falsa, o -1 si todas satisfacen. */
     public static int primeraClausulaFalsa(Formula f, boolean[] a) {
         validarTresCNF(f);

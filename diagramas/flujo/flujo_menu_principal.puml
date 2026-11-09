@@ -1,10 +1,20 @@
 @startuml
+title Menú principal (13 opciones)
 start
-:mostrar menú;
-:leer opción;
-if (13?) then (sí)
-stop
+:mostrar opciones 1..13;
+:leer entero con reintento;
+if (entrada válida 1..13?) then (sí)
+  if (opción 13?) then (sí)
+    stop
+  else (no)
+    :ejecutar opción;
+    if (error controlado?) then (sí)
+      :mostrar mensaje amigable;
+    endif
+  endif
 else (no)
-:ejecutar opción;
+  :mostrar "Ingrese un número entero";
 endif
+:volver al menú;
+repeat
 @enduml

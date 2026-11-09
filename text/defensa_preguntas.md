@@ -15,3 +15,18 @@
 13. **¿Qué mide `nanoTime`?** Tiempo transcurrido de alta resolución.
 14. **¿Qué pasa con cláusulas inválidas?** El validador explica el motivo y las rechaza.
 15. **¿Por qué no usar un solucionador externo?** La restricción exige implementar la lógica desde cero.
+16. **¿Por qué `unsat_peor_caso` no lleva relleno?** El relleno puede falsar cláusulas antes de llegar a las últimas variables y podar el prefijo.
+17. **¿Por qué aparecen `2^(n+1)-1` nodos?** Es la suma de todos los niveles del árbol binario completo de decisiones.
+18. **¿Por qué se calienta la JVM?** El JIT compila métodos usados y evita comparar el arranque con el código optimizado.
+19. **¿Por qué verificar no incluye validar?** La fórmula se valida una vez; mezclar ambos costos oculta el costo del certificado.
+20. **¿Qué mide `getThreadAllocatedBytes`?** Bytes asignados por el hilo durante la llamada, no memoria residente total.
+21. **¿Por qué 2-SAT no se generaliza directamente a 3-SAT?** Las implicaciones de dos literales no representan una cláusula ternaria completa.
+22. **¿Qué es el umbral 4.26?** La razón aproximada m/n donde instancias aleatorias 3-SAT concentran transición y dificultad.
+23. **¿Qué significa una cláusula tautológica?** Contiene x y ¬x, por lo que siempre es verdadera; se informa como aviso.
+24. **¿Qué significa una repetición?** Una posición repetida sigue siendo válida en la definición de tres posiciones.
+25. **¿Por qué se usa una máscara?** Codifica las n decisiones en bits y evita crear un arreglo por asignación.
+26. **¿Qué mide profundidad máxima?** El mayor nivel recursivo alcanzado; está acotado por n.
+27. **¿Qué es una instancia plantada?** Una fórmula generada para que una asignación conocida satisfaga todas las cláusulas.
+28. **¿Qué hace Kosaraju?** Ejecuta DFS en el grafo y su inverso para etiquetar componentes fuertemente conexas.
+29. **¿Qué prueba una reducción?** Que la respuesta SAT se conserva en ambos sentidos y que el tamaño crece polynomialmente.
+30. **¿Qué es JIT?** Compilación durante la ejecución de bytecode caliente a código nativo.

@@ -59,6 +59,15 @@ python services/charts-service/generar_graficas.py
 python services/charts-service/generar_tablas_md.py
 ```
 
+Para generar el PDF técnico en Arch:
+
+```bash
+sudo pacman -S pandoc texlive-latexextra texlive-lang
+./scripts/generar_informe_pdf.sh
+```
+
+Alternativamente, use `pandoc` con `python-weasyprint` como motor PDF.
+
 ## Decisiones de diseño
 
 Se usa un paquete Java común para mantener compilación directa con `javac`; los

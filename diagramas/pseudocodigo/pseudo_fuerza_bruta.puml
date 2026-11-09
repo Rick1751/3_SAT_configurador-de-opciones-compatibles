@@ -1,3 +1,18 @@
 @startuml
-rectangle "1. para máscara=0..2^n-1\n2. construir asignación\n3. verificar\n4. devolver al encontrar; si no, UNSAT\nDominante: enumeración binaria"
+title Fuerza bruta por máscara
+legend
+<font:monospaced>
+Entrada: F 3-CNF válida con n <= 62
+Salida: Resultado SAT/UNSAT
+01. total <- 2^n
+02. para máscara desde 0 hasta total-1 (2^n veces)
+03.   para cada cláusula c (m veces)
+04.     evaluar cada literal directamente con bits de máscara
+05.     si c es falsa, pasar a la siguiente máscara
+06.   construir boolean[] solo si todas son verdaderas
+07.   devolver asignación SAT
+08. devolver UNSAT tras explorar 2^n máscaras
+Dominante: línea 02 por 2^n y líneas 03-04 por m; Θ(2^n*m).
+</font>
+endlegend
 @enduml

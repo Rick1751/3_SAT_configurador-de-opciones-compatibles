@@ -1,3 +1,18 @@
 @startuml
-rectangle "1. cláusula corta: repetir literal\n2. cláusula larga: introducir y\n3. dividir en cláusulas de tres\n4. conservar satisfacibilidad"
+title Reducción SAT a 3-SAT
+legend
+<font:monospaced>
+Entrada: CNF con cláusulas de tamaño variable
+Salida: fórmula 3-CNF equisatisfacible
+01. para cada cláusula c
+02.   si |c|=1, repetir su literal tres veces
+03.   si |c|=2, repetir el segundo literal
+04.   si |c|=3, copiar c
+05.   si |c|>3, crear auxiliares y encadenar ternas
+06.     (a v b v y1) y (¬y1 v c v y2) ...
+07.   agregar las ternas resultantes
+08. devolver fórmula; auxiliares crecen linealmente con |c|
+Dominante: visitar todos los literales, Θ(sum |c|).
+</font>
+endlegend
 @enduml

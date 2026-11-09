@@ -6,54 +6,66 @@ Estas tablas se regeneran con `python services/charts-service/generar_tablas_md.
 
 | Prueba | Familia | Tamaño de entrada | Tiempo de ejecución (ms) | Memoria medida (bytes) | Resultado |
 | --- | --- | --- | --- | --- | --- |
-| backtracking | aleatoria_4_26 | 12 | 0.125258 | 29544 | SAT |
-| backtracking | aleatoria_4_26 | 14 | 0.079996 | 33648 | MIXTO 4/5 |
-| backtracking | aleatoria_4_26 | 16 | 0.132631 | 37872 | SAT |
-| backtracking | aleatoria_4_26 | 18 | 0.712667 | 41664 | MIXTO 3/5 |
-| backtracking | aleatoria_4_26 | 20 | 0.594307 | 45544 | MIXTO 3/5 |
-| backtracking | aleatoria_4_26 | 22 | 1.174534 | 50136 | SAT |
-| backtracking | sat_plantada | 12 | 0.012525 | 27728 | SAT |
-| backtracking | sat_plantada | 14 | 0.014984 | 32576 | SAT |
-| backtracking | sat_plantada | 16 | 0.028516 | 36656 | SAT |
-| backtracking | sat_plantada | 18 | 0.137129 | 41640 | SAT |
+| backtracking | aleatoria_4_26 | 12 | 0.101495 | 28512 | SAT |
+| backtracking | aleatoria_4_26 | 14 | 0.164101 | 33648 | MIXTO 4/5 |
+| backtracking | aleatoria_4_26 | 16 | 0.163067 | 37872 | SAT |
+| backtracking | aleatoria_4_26 | 18 | 0.675555 | 42760 | MIXTO 3/5 |
+| backtracking | aleatoria_4_26 | 20 | 0.581365 | 46952 | MIXTO 3/5 |
+| backtracking | aleatoria_4_26 | 22 | 1.153605 | 51688 | SAT |
+| backtracking | sat_plantada | 12 | 0.012296 | 28592 | SAT |
+| backtracking | sat_plantada | 14 | 0.016612 | 33584 | SAT |
+| backtracking | sat_plantada | 16 | 0.03202 | 37792 | SAT |
+| backtracking | sat_plantada | 18 | 0.146658 | 42920 | SAT |
 
 ## Resumen por algoritmo y familia
 
 | algoritmo | familia | n | mediana_ms | promedio_ms | desviacion_ms | minimo_ms | maximo_ms | mediana_bytes_asignados | mediana_nodos_o_asignaciones | resultado |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| backtracking | aleatoria_4_26 | 12 | 0.125258 | 0.131159 | 0.041743 | 0.076026 | 0.193811 | 29544 | 115 | SAT |
-| backtracking | aleatoria_4_26 | 14 | 0.079996 | 0.078562 | 0.022003 | 0.050184 | 0.106523 | 33648 | 267 | MIXTO 4/5 |
-| backtracking | aleatoria_4_26 | 16 | 0.132631 | 0.212651 | 0.213727 | 0.055094 | 0.629518 | 37872 | 482 | SAT |
-| backtracking | aleatoria_4_26 | 18 | 0.712667 | 0.722735 | 0.422732 | 0.124822 | 1.192037 | 41664 | 1640 | MIXTO 3/5 |
-| backtracking | aleatoria_4_26 | 20 | 0.594307 | 1.033797 | 0.979151 | 0.01473 | 2.539261 | 45544 | 1007 | MIXTO 3/5 |
-| backtracking | aleatoria_4_26 | 22 | 1.174534 | 1.862801 | 1.469398 | 0.836057 | 4.7412 | 50136 | 2285 | SAT |
-| backtracking | sat_plantada | 12 | 0.012525 | 0.014917 | 0.008356 | 0.006721 | 0.030321 | 27728 | 76 | SAT |
-| backtracking | sat_plantada | 14 | 0.014984 | 0.016723 | 0.008323 | 0.007318 | 0.031734 | 32576 | 58 | SAT |
-| backtracking | sat_plantada | 16 | 0.028516 | 0.030642 | 0.011835 | 0.019097 | 0.051823 | 36656 | 154 | SAT |
-| backtracking | sat_plantada | 18 | 0.137129 | 0.256411 | 0.243876 | 0.018915 | 0.717059 | 41640 | 389 | SAT |
-| backtracking | sat_plantada | 20 | 0.118143 | 0.467588 | 0.684618 | 0.014887 | 1.821399 | 45432 | 341 | SAT |
-| backtracking | sat_plantada | 22 | 1.343536 | 2.398397 | 2.674855 | 0.514461 | 7.65766 | 50136 | 2478 | SAT |
-| backtracking | unsat_peor_caso | 12 | 0.067044 | 0.083723 | 0.046832 | 0.029895 | 0.147376 | 27408 | 489 | UNSAT |
-| backtracking | unsat_peor_caso | 14 | 0.306499 | 0.346035 | 0.203556 | 0.118111 | 0.705571 | 32400 | 923 | UNSAT |
-| backtracking | unsat_peor_caso | 16 | 0.7356 | 0.805194 | 0.394784 | 0.344121 | 1.467896 | 36560 | 1873 | UNSAT |
-| backtracking | unsat_peor_caso | 18 | 2.107142 | 2.025666 | 1.31751 | 0.563857 | 4.085718 | 41280 | 4423 | UNSAT |
-| backtracking | unsat_peor_caso | 20 | 4.457884 | 6.176361 | 2.954139 | 3.165819 | 11.375716 | 45320 | 6989 | UNSAT |
-| backtracking | unsat_peor_caso | 22 | 12.210504 | 12.750419 | 6.099152 | 5.030669 | 23.701455 | 49880 | 23681 | UNSAT |
-| fuerza_bruta | aleatoria_4_26 | 12 | 0.186361 | 0.151002 | 0.072653 | 0.064305 | 0.245388 | 28296 | 2201 | SAT |
-| fuerza_bruta | aleatoria_4_26 | 14 | 0.483155 | 0.505731 | 0.260131 | 0.11795 | 0.826147 | 33552 | 10279 | MIXTO 4/5 |
-| fuerza_bruta | aleatoria_4_26 | 16 | 0.831572 | 1.071928 | 0.760614 | 0.291493 | 2.290368 | 37776 | 15542 | SAT |
-| fuerza_bruta | aleatoria_4_26 | 18 | 2.689037 | 5.370177 | 4.536637 | 1.053991 | 11.598044 | 41384 | 41488 | MIXTO 3/5 |
-| fuerza_bruta | aleatoria_4_26 | 20 | 27.290769 | 24.213153 | 14.143458 | 3.622268 | 44.31735 | 45448 | 633222 | MIXTO 3/5 |
-| fuerza_bruta | aleatoria_4_26 | 22 | 46.754161 | 45.854146 | 24.640229 | 1.926654 | 73.856311 | 50024 | 1166182 | SAT |
-| fuerza_bruta | sat_plantada | 12 | 0.024939 | 0.021911 | 0.011378 | 0.007563 | 0.03749 | 27648 | 498 | SAT |
-| fuerza_bruta | sat_plantada | 14 | 0.256696 | 0.309746 | 0.123639 | 0.1499 | 0.471213 | 32480 | 7013 | SAT |
-| fuerza_bruta | sat_plantada | 16 | 1.352271 | 1.577813 | 0.52432 | 0.970011 | 2.452136 | 36560 | 36368 | SAT |
-| fuerza_bruta | sat_plantada | 18 | 0.825438 | 1.501642 | 1.504579 | 0.028513 | 3.663091 | 41544 | 12351 | SAT |
-| fuerza_bruta | sat_plantada | 20 | 7.985637 | 8.242131 | 4.386281 | 2.641665 | 15.022347 | 45336 | 168193 | SAT |
-| fuerza_bruta | sat_plantada | 22 | 16.443885 | 39.265167 | 37.750509 | 11.64834 | 111.00569 | 50024 | 393718 | SAT |
-| fuerza_bruta | unsat_peor_caso | 12 | 0.096837 | 0.097343 | 0.001231 | 0.096547 | 0.099795 | 27328 | 4096 | UNSAT |
-| fuerza_bruta | unsat_peor_caso | 14 | 0.410949 | 0.406179 | 0.012943 | 0.386178 | 0.424234 | 32304 | 16384 | UNSAT |
-| fuerza_bruta | unsat_peor_caso | 16 | 1.796919 | 1.796683 | 0.038918 | 1.735536 | 1.858497 | 36464 | 65536 | UNSAT |
-| fuerza_bruta | unsat_peor_caso | 18 | 6.709655 | 6.852525 | 0.203447 | 6.70128 | 7.222443 | 41184 | 262144 | UNSAT |
-| fuerza_bruta | unsat_peor_caso | 20 | 31.631849 | 34.323626 | 11.13577 | 26.040124 | 56.01555 | 45224 | 1048576 | UNSAT |
-| fuerza_bruta | unsat_peor_caso | 22 | 102.142244 | 102.546673 | 6.633281 | 94.81757 | 114.489725 | 49768 | 4194304 | UNSAT |
+| backtracking | aleatoria_4_26 | 12 | 0.101495 | 0.102477 | 0.018597 | 0.06933 | 0.121203 | 28512 | 115 | SAT |
+| backtracking | aleatoria_4_26 | 14 | 0.164101 | 0.189848 | 0.094977 | 0.06251 | 0.340508 | 33648 | 267 | MIXTO 4/5 |
+| backtracking | aleatoria_4_26 | 16 | 0.163067 | 0.245937 | 0.277835 | 0.01596 | 0.771374 | 37872 | 482 | SAT |
+| backtracking | aleatoria_4_26 | 18 | 0.675555 | 0.817031 | 0.56779 | 0.110463 | 1.593221 | 42760 | 1640 | MIXTO 3/5 |
+| backtracking | aleatoria_4_26 | 20 | 0.581365 | 1.163845 | 1.260737 | 0.013819 | 3.417751 | 46952 | 1007 | MIXTO 3/5 |
+| backtracking | aleatoria_4_26 | 22 | 1.153605 | 1.882704 | 1.541232 | 0.678894 | 4.836382 | 51688 | 2285 | SAT |
+| backtracking | sat_plantada | 12 | 0.012296 | 0.216432 | 0.405218 | 0.006106 | 1.026764 | 28592 | 76 | SAT |
+| backtracking | sat_plantada | 14 | 0.016612 | 0.016382 | 0.004065 | 0.01219 | 0.023626 | 33584 | 58 | SAT |
+| backtracking | sat_plantada | 16 | 0.03202 | 0.032872 | 0.007013 | 0.022225 | 0.041831 | 37792 | 154 | SAT |
+| backtracking | sat_plantada | 18 | 0.146658 | 0.248105 | 0.229609 | 0.018455 | 0.674792 | 42920 | 389 | SAT |
+| backtracking | sat_plantada | 20 | 0.122523 | 0.488002 | 0.68282 | 0.023916 | 1.827979 | 46840 | 341 | SAT |
+| backtracking | sat_plantada | 22 | 1.350529 | 2.601531 | 2.852638 | 0.575202 | 8.177398 | 51688 | 2478 | SAT |
+| backtracking | unsat_con_relleno | 12 | 0.07081 | 0.08578 | 0.04119 | 0.043917 | 0.150559 | 28272 | 489 | UNSAT |
+| backtracking | unsat_con_relleno | 14 | 0.296152 | 0.353794 | 0.195325 | 0.147437 | 0.692992 | 33408 | 923 | UNSAT |
+| backtracking | unsat_con_relleno | 16 | 0.790683 | 1.461208 | 1.202673 | 0.447306 | 3.614086 | 37696 | 1873 | UNSAT |
+| backtracking | unsat_con_relleno | 18 | 2.361349 | 2.112543 | 1.378346 | 0.522677 | 4.264985 | 42560 | 4423 | UNSAT |
+| backtracking | unsat_con_relleno | 20 | 4.199173 | 4.960356 | 1.64759 | 3.007831 | 7.419712 | 46728 | 6989 | UNSAT |
+| backtracking | unsat_con_relleno | 22 | 10.426828 | 10.926974 | 4.056394 | 4.961129 | 17.554549 | 51432 | 23681 | UNSAT |
+| backtracking | unsat_peor_caso | 12 | 0.220719 | 0.213515 | 0.013686 | 0.192124 | 0.230098 | 4480 | 8191 | UNSAT |
+| backtracking | unsat_peor_caso | 14 | 0.852584 | 0.859612 | 0.021238 | 0.835882 | 0.89914 | 4496 | 32767 | UNSAT |
+| backtracking | unsat_peor_caso | 16 | 3.164406 | 3.144839 | 0.071296 | 3.01707 | 3.227228 | 4496 | 131071 | UNSAT |
+| backtracking | unsat_peor_caso | 18 | 13.19171 | 13.421584 | 0.577714 | 12.865775 | 14.464516 | 4496 | 524287 | UNSAT |
+| backtracking | unsat_peor_caso | 20 | 50.223651 | 50.184596 | 0.69629 | 49.110324 | 51.146491 | 4496 | 2097151 | UNSAT |
+| backtracking | unsat_peor_caso | 22 | 264.740595 | 242.334311 | 35.004619 | 197.960663 | 277.726385 | 4512 | 8388607 | UNSAT |
+| fuerza_bruta | aleatoria_4_26 | 12 | 0.202741 | 0.190971 | 0.100453 | 0.063165 | 0.334252 | 28296 | 2201 | SAT |
+| fuerza_bruta | aleatoria_4_26 | 14 | 0.846417 | 0.949644 | 0.573202 | 0.204293 | 1.966419 | 33552 | 10279 | MIXTO 4/5 |
+| fuerza_bruta | aleatoria_4_26 | 16 | 0.627527 | 1.258059 | 1.084539 | 0.2218 | 2.737601 | 37776 | 15542 | SAT |
+| fuerza_bruta | aleatoria_4_26 | 18 | 2.183249 | 4.845695 | 4.173475 | 0.951952 | 10.662177 | 42664 | 41488 | MIXTO 3/5 |
+| fuerza_bruta | aleatoria_4_26 | 20 | 26.375345 | 23.502011 | 13.113175 | 3.434781 | 39.839134 | 46856 | 633222 | MIXTO 3/5 |
+| fuerza_bruta | aleatoria_4_26 | 22 | 45.256492 | 45.263981 | 24.650975 | 1.734118 | 74.583761 | 51576 | 1166182 | SAT |
+| fuerza_bruta | sat_plantada | 12 | 0.025289 | 0.02986 | 0.01603 | 0.012856 | 0.059319 | 28512 | 498 | SAT |
+| fuerza_bruta | sat_plantada | 14 | 0.282638 | 0.293183 | 0.101151 | 0.134487 | 0.44849 | 33488 | 7013 | SAT |
+| fuerza_bruta | sat_plantada | 16 | 1.321278 | 1.534975 | 0.493719 | 0.945391 | 2.345133 | 37696 | 36368 | SAT |
+| fuerza_bruta | sat_plantada | 18 | 0.812888 | 1.538704 | 1.572533 | 0.025825 | 3.92358 | 42824 | 12351 | SAT |
+| fuerza_bruta | sat_plantada | 20 | 8.189426 | 8.117289 | 4.11958 | 2.67373 | 14.490331 | 46744 | 168193 | SAT |
+| fuerza_bruta | sat_plantada | 22 | 17.03866 | 38.367853 | 36.914609 | 12.112079 | 109.237832 | 51576 | 393718 | SAT |
+| fuerza_bruta | unsat_con_relleno | 12 | 0.105722 | 0.106992 | 0.001791 | 0.105356 | 0.109285 | 28192 | 4096 | UNSAT |
+| fuerza_bruta | unsat_con_relleno | 14 | 0.437418 | 0.440749 | 0.017115 | 0.423703 | 0.469663 | 33312 | 16384 | UNSAT |
+| fuerza_bruta | unsat_con_relleno | 16 | 2.174208 | 2.075806 | 0.172622 | 1.794073 | 2.258234 | 37600 | 65536 | UNSAT |
+| fuerza_bruta | unsat_con_relleno | 18 | 6.71933 | 6.735347 | 0.263807 | 6.499894 | 7.224839 | 42464 | 262144 | UNSAT |
+| fuerza_bruta | unsat_con_relleno | 20 | 23.60472 | 23.46945 | 0.300522 | 23.09293 | 23.789145 | 46632 | 1048576 | UNSAT |
+| fuerza_bruta | unsat_con_relleno | 22 | 94.300722 | 93.851681 | 1.200621 | 92.418085 | 95.28106 | 51320 | 4194304 | UNSAT |
+| fuerza_bruta | unsat_peor_caso | 12 | 0.096291 | 0.096724 | 0.005193 | 0.087909 | 0.103779 | 4400 | 4096 | UNSAT |
+| fuerza_bruta | unsat_peor_caso | 14 | 0.381932 | 0.38021 | 0.008117 | 0.370951 | 0.392681 | 4400 | 16384 | UNSAT |
+| fuerza_bruta | unsat_peor_caso | 16 | 1.338637 | 1.338868 | 0.026538 | 1.294921 | 1.368142 | 4400 | 65536 | UNSAT |
+| fuerza_bruta | unsat_peor_caso | 18 | 5.788565 | 5.815266 | 0.071682 | 5.765982 | 5.95751 | 4400 | 262144 | UNSAT |
+| fuerza_bruta | unsat_peor_caso | 20 | 21.719925 | 21.673302 | 0.274789 | 21.153667 | 21.950706 | 4400 | 1048576 | UNSAT |
+| fuerza_bruta | unsat_peor_caso | 22 | 107.464776 | 105.215141 | 17.312954 | 87.264472 | 134.715183 | 4400 | 4194304 | UNSAT |

@@ -1,3 +1,18 @@
 @startuml
-rectangle "1. recorrer cláusulas\n2. comprobar longitud 3\n3. comprobar literal != 0 y |literal|<=n\n4. informar repeticiones/tautologías\nDominante: validación por cláusula" 
+title Validar 3-CNF
+legend
+<font:monospaced>
+Entrada: fórmula F con n variables y m cláusulas
+Salida: errores y avisos
+01. errores <- []; avisos <- []
+02. si n < 1, agregar error
+03. para cada cláusula c (m veces)
+04.   si longitud(c) != 3, agregar error
+05.   para cada literal l de c
+06.     si l = 0 o |l| > n, agregar error
+07.   detectar repetición y tautología; agregar aviso
+08. devolver ResultadoValidacion(errores, avisos)
+Operación dominante: recorrer cláusulas, Θ(m).
+</font>
+endlegend
 @enduml

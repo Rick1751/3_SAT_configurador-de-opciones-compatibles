@@ -1,8 +1,23 @@
 @startuml
+title Árbol de decisión: origen de 2^n
 start
-:n decisiones binarias;
-:2^n hojas;
-:evaluar m cláusulas por hoja;
-:costo O(2^n * m);
+:x1 = F o V;
+if (x2 = F o V) then (F)
+  :x3 = F o V;
+  if (cláusula falsa?) then (podar)
+    :rama podada;
+  else (posible)
+    :2 hojas;
+  endif
+else (V)
+  :x3 = F o V;
+  :2 hojas;
+endif
+note right
+3 niveles: 2 opciones por variable
+=> 2^3 = 8 hojas para n=3
+Con n variables: 2^n hojas.
+Cada hoja evalúa m cláusulas => ·m.
+end note
 stop
 @enduml

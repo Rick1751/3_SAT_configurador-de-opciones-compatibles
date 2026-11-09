@@ -1,8 +1,18 @@
 @startuml
-rectangle "P" as P
-rectangle "NP" as N
-rectangle "NP-completos\nSAT, 3-SAT" as C
-P -[hidden]-> N
-N -[hidden]-> C
-note right of P: 2-SAT pertenece a P
+title Clases de complejidad
+rectangle "P" as P {
+  rectangle "2-SAT\nSCC, Θ(n+m)" as TWO
+}
+rectangle "NP" as NP {
+  rectangle "NP-completos" as NPC {
+    rectangle "SAT\nCook-Levin" as SAT
+    rectangle "3-SAT" as THREE
+  }
+}
+P -[bold]-> NP : P ⊆ NP
+SAT --> THREE : SAT ≤p 3-SAT
+note right of SAT
+Cook-Levin: toda computación
+de NP se codifica como SAT.
+end note
 @enduml

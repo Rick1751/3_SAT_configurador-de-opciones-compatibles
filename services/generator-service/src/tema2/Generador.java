@@ -37,6 +37,14 @@ public final class Generador {
      * El orden de decisión deja el prefijo libre, forzando a explorar 2^(n-3).
      */
     public static Formula unsatGarantizada(int n, int m, long semilla) {
+        return unsatGarantizada(n, m, semilla, true);
+    }
+
+    /**
+     * Genera las ocho cláusulas que contradicen todas las combinaciones finales.
+     * Sin relleno, el backtracking recorre exactamente 2^(n+1)-1 nodos.
+     */
+    public static Formula unsatGarantizada(int n, int m, long semilla, boolean conRelleno) {
         if (n < 3) throw new IllegalArgumentException("La familia UNSAT requiere n >= 3.");
         Random random = new Random(semilla);
         List<int[]> clausulas = new ArrayList<>();
@@ -49,7 +57,9 @@ public final class Generador {
             }
             clausulas.add(clausula);
         }
-        for (int i = 8; i < m; i++) clausulas.add(clausulaAleatoria(random, n));
+        if (conRelleno) {
+            for (int i = 8; i < m; i++) clausulas.add(clausulaAleatoria(random, n));
+        }
         return new Formula(n, clausulas);
     }
 

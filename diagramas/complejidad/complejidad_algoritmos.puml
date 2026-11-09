@@ -1,3 +1,14 @@
 @startuml
-rectangle "Validar Θ(m)\nVerificar O(m)\nFuerza bruta Θ(2^n m)\nBacktracking O(2^n m)\n2-SAT Θ(n+m)\nReducción O(sumatoria de tamaños)\nGeneración O(m)" as T
+title Complejidad de algoritmos
+hide footbox
+legend
+|=Algoritmo|=T mejor|=T promedio|=T peor|=S(n)|=Ω / O / Θ|
+|Validación|Θ(m)|Θ(m)|Θ(m)|O(1)|Θ(m)|
+|Verificación|Ω(1)|O(m)|Θ(m)|O(1)|Ω(1), O(m)|
+|Fuerza bruta|Ω(m)|Θ(2^n m)|Θ(2^n m)|O(n+m)|Ω(m), Θ(2^n m)|
+|Backtracking|Ω(nm)|depende poda|O(2^n m)|O(n)|Ω(nm), O(2^n m)|
+|2-SAT|Θ(n+m)|Θ(n+m)|Θ(n+m)|O(n+m)|Θ(n+m)|
+|Reducción|Θ(sum |c|)|Θ(sum |c|)|Θ(sum |c|)|O(sum |c|)|Θ(sum |c|)|
+|Generación|Θ(3m)|Θ(3m)|Θ(3m)|O(n+m)|Θ(m)|
+endlegend
 @enduml

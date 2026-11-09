@@ -29,8 +29,10 @@ def guardar(nombre):
 
 
 def grafica_tamano(resumen):
-    fig, ejes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-    for eje, familia in zip(ejes, resumen["familia"].unique()):
+    familias = list(resumen["familia"].unique())
+    fig, ejes = plt.subplots(2, 2, figsize=(12, 9), sharey=True)
+    ejes = ejes.ravel()
+    for eje, familia in zip(ejes, familias):
         parte = resumen[resumen["familia"] == familia]
         for algoritmo, grupo in parte.groupby("algoritmo"):
             eje.errorbar(grupo["n"], grupo["mediana_ms"],
@@ -47,34 +49,45 @@ def grafica_tamano(resumen):
         eje.grid(alpha=.25)
         eje.set_yscale("log")
     ejes[0].set_ylabel("Mediana de tiempo (ms, log)")
-    ejes[-1].legend(fontsize=8)
+    for eje in ejes[len(familias):]:
+        eje.axis("off")
+    ejes[len(familias) - 1].legend(fontsize=8)
     guardar("01_tamano_vs_tiempo.png")
 
 
 def grafica_comparacion(resumen):
-    fig, ejes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-    for eje, familia in zip(ejes, resumen["familia"].unique()):
+    familias = list(resumen["familia"].unique())
+    fig, ejes = plt.subplots(2, 2, figsize=(12, 9), sharey=True)
+    ejes = ejes.ravel()
+    for eje, familia in zip(ejes, familias):
         parte = resumen[resumen["familia"] == familia]
         pivote = parte.pivot(index="n", columns="algoritmo", values="mediana_ms")
         pivote.plot.bar(ax=eje, logy=True, title=familia)
         eje.set_xlabel("Variables (n)")
         eje.set_ylabel("Mediana (ms, log)")
         eje.grid(axis="y", alpha=.25)
+    for eje in ejes[len(familias):]:
+        eje.axis("off")
     guardar("02_comparacion_algoritmos.png")
 
 
 def grafica_encontrar(datos):
-    plt.figure()
-    for familia, grupo in datos.groupby("familia"):
-        plt.plot(grupo["n"], grupo["tiempo_encontrar_fb_ns"], "o-", label=f"FB {familia}")
-        plt.plot(grupo["n"], grupo["tiempo_encontrar_bt_ns"], "s-", label=f"BT {familia}")
-    plt.plot(datos["n"], datos["tiempo_verificar_ns"], "^-", label="Verificar")
-    plt.yscale("log")
-    plt.xlabel("Variables (n)")
-    plt.ylabel("Tiempo (ns, log)")
-    plt.title("Encontrar frente a verificar")
-    plt.grid(alpha=.25)
-    plt.legend()
+    fig, ejes = plt.subplots(1, len(datos["familia"].unique()), figsize=(15, 5), sharey=True)
+    if len(datos["familia"].unique()) == 1:
+        ejes = [ejes]
+    for eje, (familia, grupo) in zip(ejes, datos.groupby("familia")):
+        eje.plot(grupo["n"], grupo["mediana_encontrar_fb_ns"], "o-", label="Fuerza bruta")
+        eje.plot(grupo["n"], grupo["mediana_encontrar_bt_ns"], "s-", label="Backtracking")
+        eje.plot(grupo["n"], grupo["mediana_verificar_ns"], "^-", label="Verificar")
+        fila = grupo.sort_values("n").iloc[-1]
+        eje.annotate(f"FB/verificar={fila['mediana_encontrar_fb_ns'] / fila['mediana_verificar_ns']:.1f}x",
+                     (fila["n"], fila["mediana_encontrar_fb_ns"]))
+        eje.set_title(familia)
+        eje.set_xlabel("Variables (n)")
+        eje.grid(alpha=.25)
+        eje.set_yscale("log")
+    ejes[0].set_ylabel("Mediana de tiempo (ns, log)")
+    ejes[-1].legend(fontsize=8)
     guardar("03_encontrar_vs_verificar.png")
 
 
@@ -158,8 +171,8 @@ def main():
                     ["algoritmo", "familia", "n", "nodos_visitados", "bytes_asignados",
                      "profundidad_maxima"])
     encontrar = cargar("resultados_encontrar_vs_verificar.csv",
-                       ["n", "tiempo_encontrar_fb_ns", "tiempo_encontrar_bt_ns",
-                        "tiempo_verificar_ns"])
+                       ["n", "familia", "mediana_encontrar_fb_ns",
+                        "mediana_encontrar_bt_ns", "mediana_verificar_ns"])
     dos_tres = cargar("resultados_2sat_vs_3sat.csv", ["n", "algoritmo", "tiempo_ns"])
     escala = cargar("resultados_2sat_escalabilidad.csv", ["n", "tiempo_ns"])
     alpha = cargar("resultados_alpha.csv", ["alpha", "mediana_nodos", "fraccion_sat"])

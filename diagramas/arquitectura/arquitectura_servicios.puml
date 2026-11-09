@@ -1,16 +1,24 @@
 @startuml
-component "formula-service" as F
-component "solver-service" as S
-component "generator-service" as G
-component "benchmark-service" as B
-component "console-app" as C
+title Arquitectura de seis servicios
+component "console-app\n13 opciones" as C
+component "formula-service\nparse + validar3CNF" as F
+component "solver-service\nFB, BT, 2-SAT, reducción" as S
+component "generator-service\nfamilias reproducibles" as G
+component "benchmark-service\nwarmup + CSV" as B
 component "charts-service\nPython" as P
-C --> F
-C --> S
-C --> G
+database "data/resultados/*.csv" as D
+folder "graficas/*.png" as I
+C --> F : Formula / ResultadoValidacion
+C --> S : resolver después de validar
+C --> G : generar familia
+C --> B : opción 11
 B --> G
-B --> S
-B --> "CSV"
-P --> "PNG"
-"CSV" --> P
+B --> S : solver medido
+B --> D : medianas + bytes
+D --> P
+P --> I
+note right of B
+20 calentamientos para casos normales
+timeout registrado después de 20 s
+end note
 @enduml

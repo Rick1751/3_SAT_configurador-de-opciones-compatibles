@@ -1,3 +1,18 @@
 @startuml
-rectangle "1. recorrer cláusulas\n2. evaluar sus tres literales\n3. si alguna queda falsa: UNSAT\n4. devolver SAT si todas son verdaderas\nDominante: evaluación de literales"
+title Verificar asignación
+legend
+<font:monospaced>
+Entrada: F válida y asignación a de tamaño n
+Salida: SAT o índice de cláusula falsa
+01. comprobar que |a| = n
+02. para cada cláusula c (m veces)
+03.   satisfecha <- falso
+04.   para cada uno de los 3 literales
+05.     evaluar signo y valor de la variable
+06.     si es verdadero, satisfecha <- verdadero
+07.   si no satisfecha, devolver índice de c
+08. devolver -1 (todas satisfechas)
+Operación dominante: 3m evaluaciones, O(m).
+</font>
+endlegend
 @enduml

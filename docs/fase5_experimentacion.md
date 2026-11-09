@@ -6,8 +6,12 @@ incluir generación, entrada ni escritura. Los CSV reales se escriben en
 `data/resultados/` y contienen las familias `aleatoria_4_26`, `sat_plantada` y
 `unsat_peor_caso`.
 
-La ejecución actual produjo 180 mediciones crudas (3 familias × 2 algoritmos ×
-6 tamaños × 5 repeticiones) y 36 grupos resumen con mediana, promedio,
+La ejecución actual produjo mediciones crudas para las familias
+`aleatoria_4_26`, `sat_plantada`, `unsat_peor_caso` (m=8) y
+`unsat_con_relleno` (m≈4.26n), con cinco repeticiones por tamaño. La primera
+es difícil aleatoria, la segunda tiene solución plantada, la tercera es el
+peor caso exacto y la cuarta es UNSAT típica con poda fuerte. Los grupos
+resumen contienen mediana, promedio,
 desviación, mínimos, máximos, bytes asignados y resultado agregado. Las tablas
 se generan en [tablas_generadas.md](tablas_generadas.md) y las imágenes PNG se
 encuentran en `graficas/`.

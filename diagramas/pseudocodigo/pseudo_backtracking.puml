@@ -1,3 +1,18 @@
 @startuml
-rectangle "1. si cláusula falsa, podar\n2. si no quedan variables, verificar\n3. asignar F y recursar\n4. asignar V y recursar\nDominante: poda incremental"
+title Backtracking con poda
+legend
+<font:monospaced>
+Entrada: F 3-CNF válida, posición i y asignación parcial
+Salida: asignación SAT o UNSAT
+01. nodos <- nodos + 1
+02. si una cláusula queda totalmente falsa, devolver falso (poda)
+03. si i = n, contar hoja y verificar
+04. marcar xi como asignada y fijarla a F
+05. si BACKTRACK(i+1) es verdadero, devolver verdadero
+06. fijar xi a V
+07. si BACKTRACK(i+1) es verdadero, devolver verdadero
+08. desmarcar xi y devolver falso
+Peor caso: 2^(n+1)-1 nodos; coste por nodo O(m).
+</font>
+endlegend
 @enduml

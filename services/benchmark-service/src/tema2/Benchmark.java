@@ -34,7 +34,8 @@ public final class Benchmark {
 
     private static void ejecutarFamilias(BufferedWriter salida, List<Fila> filas) throws IOException {
         int[] tamanos = {12, 14, 16, 18, 20, 22};
-        for (String familia : List.of("aleatoria_4_26", "sat_plantada", "unsat_peor_caso")) {
+        for (String familia : List.of("aleatoria_4_26", "sat_plantada",
+                "unsat_peor_caso", "unsat_con_relleno")) {
             for (int n : tamanos) {
                 for (int repeticion = 1; repeticion <= 5; repeticion++) {
                     int m = Math.max(8, (int) Math.round(4.26 * n));
@@ -52,7 +53,8 @@ public final class Benchmark {
         return switch (familia) {
             case "aleatoria_4_26" -> Generador.aleatoria(n, m, semilla);
             case "sat_plantada" -> Generador.satGarantizada(n, m, semilla);
-            case "unsat_peor_caso" -> Generador.unsatGarantizada(n, m, semilla);
+            case "unsat_peor_caso" -> Generador.unsatGarantizada(n, 8, semilla, false);
+            case "unsat_con_relleno" -> Generador.unsatGarantizada(n, m, semilla, true);
             default -> throw new IllegalArgumentException("Familia desconocida: " + familia);
         };
     }
@@ -63,17 +65,19 @@ public final class Benchmark {
         Supplier<Resultado> solver = algoritmo.equals("fuerza_bruta")
                 ? () -> SolverService.fuerzaBruta(formula)
                 : () -> SolverService.backtracking(formula);
-        for (int i = 0; i < 20; i++) solver.get();
+        int calentamiento = familia.equals("unsat_peor_caso") && n >= 18 ? 1 : 20;
+        for (int i = 0; i < calentamiento; i++) solver.get();
         long hilo = Thread.currentThread().getId();
         long antes = bytesAsignados(hilo);
         long inicio = System.nanoTime();
         Resultado resultado = solver.get();
         long tiempo = System.nanoTime() - inicio;
         long bytes = Math.max(0, bytesAsignados(hilo) - antes);
+        boolean timeout = tiempo > 20_000_000_000L;
         long nodos = resultado.nodosVisitados();
         long memoriaAnalitica = (long) formula.variables * 8 + (long) formula.clausulas.size() * 3 * Integer.BYTES;
         Fila fila = new Fila(algoritmo, familia, n, formula.clausulas.size(), tiempo, resultado,
-                bytes, memoriaAnalitica);
+                bytes, memoriaAnalitica, timeout);
         filas.add(fila);
         salida.write(fila.csv(repeticion));
     }
@@ -114,16 +118,35 @@ public final class Benchmark {
 
     private static void escribirEncontrarVerificar(Path archivo) throws IOException {
         try (BufferedWriter salida = Files.newBufferedWriter(archivo)) {
-            salida.write("n,m,familia,tiempo_encontrar_fb_ns,tiempo_encontrar_bt_ns,tiempo_verificar_ns\n");
+            salida.write("n,m,familia,mediana_encontrar_fb_ns,mediana_encontrar_bt_ns,"
+                    + "mediana_verificar_ns,razon_encontrar_verificar\n");
             for (int n : new int[]{12, 16, 20, 22}) {
-                Formula formula = Generador.satGarantizada(n, (int) (4.26 * n), 9000 + n);
-                Resultado fb = SolverService.fuerzaBruta(formula);
-                Resultado bt = SolverService.backtracking(formula);
-                long inicio = System.nanoTime();
-                for (int i = 0; i < 10_000; i++) SolverService.verificar(formula, fb.asignacion());
-                long verificar = Math.max(1, (System.nanoTime() - inicio) / 10_000);
-                salida.write(String.format(Locale.ROOT, "%d,%d,sat_plantada,%d,%d,%d%n",
-                        n, formula.clausulas.size(), fb.tiempoNs(), bt.tiempoNs(), verificar));
+                for (String familia : List.of("sat_plantada", "aleatoria_4_26", "unsat_peor_caso")) {
+                    List<Long> fb = new ArrayList<>(), bt = new ArrayList<>(), verificar = new ArrayList<>();
+                    for (int repeticion = 0; repeticion < 5; repeticion++) {
+                        Formula formula = crearFamilia(familia, n,
+                                familia.equals("unsat_peor_caso") ? 8 : (int) (4.26 * n),
+                                (int) (40_000 + n * 10L + repeticion));
+                        Resultado resultadoFb = medirCalentado(() -> SolverService.fuerzaBruta(formula));
+                        Resultado resultadoBt = medirCalentado(() -> SolverService.backtracking(formula));
+                        boolean[] certificado = resultadoFb.asignacion() == null
+                                ? new boolean[n] : resultadoFb.asignacion();
+                        for (int i = 0; i < 20_000; i++) {
+                            SolverService.verificarSinValidar(formula, certificado);
+                        }
+                        long inicio = System.nanoTime();
+                        for (int i = 0; i < 100_000; i++) {
+                            SolverService.verificarSinValidar(formula, certificado);
+                        }
+                        fb.add(resultadoFb.tiempoNs());
+                        bt.add(resultadoBt.tiempoNs());
+                        verificar.add(Math.max(1, (System.nanoTime() - inicio) / 100_000));
+                    }
+                    long v = mediana(verificar);
+                    salida.write(String.format(Locale.ROOT, "%d,%d,%s,%d,%d,%d,%.3f%n", n,
+                            familia.equals("unsat_peor_caso") ? 8 : (int) (4.26 * n), familia,
+                            mediana(fb), mediana(bt), v, mediana(fb) / (double) v));
+                }
             }
         }
     }
@@ -200,16 +223,16 @@ public final class Benchmark {
     }
 
     private record Fila(String algoritmo, String familia, int n, int m, long tiempo,
-                        Resultado resultado, long bytes, long memoriaAnalitica) {
+                        Resultado resultado, long bytes, long memoriaAnalitica, boolean timeout) {
         long nodos() {
             return Math.max(resultado.nodosVisitados(), resultado.asignacionesProbadas());
         }
 
         String csv(int repeticion) {
-            return String.format(Locale.ROOT, "%s,%s,%d,%d,%d,%d,%d,%d,%s,%d,%d,%d,false%n",
+            return String.format(Locale.ROOT, "%s,%s,%d,%d,%d,%d,%d,%d,%s,%d,%d,%d,%s%n",
                     algoritmo, familia, n, m, repeticion, tiempo, resultado.asignacionesProbadas(),
                     resultado.nodosVisitados(), resultado.satisfacible(), bytes,
-                    resultado.profundidadMaxima(), memoriaAnalitica);
+                    resultado.profundidadMaxima(), memoriaAnalitica, timeout);
         }
     }
 }
