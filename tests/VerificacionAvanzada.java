@@ -13,9 +13,9 @@ public final class VerificacionAvanzada {
             }
             Formula formula = new Formula(n, clausulas);
             Resultado dosSat = SolverService.resolver2SAT(formula);
-            if (dosSat.satisfacible() != SolverService.fuerzaBruta(formula).satisfacible())
+            if (dosSat.satisfacible() != SolverService.resolverSatGeneral(formula).satisfacible())
                 throw new AssertionError("Discrepancia 2-SAT");
-            if (dosSat.satisfacible() && !SolverService.verificar(formula, dosSat.asignacion()))
+            if (dosSat.satisfacible() && !satisface(formula, dosSat.asignacion()))
                 throw new AssertionError("Asignación 2-SAT inválida");
         }
         for (int caso = 0; caso < 100; caso++) {
@@ -41,5 +41,16 @@ public final class VerificacionAvanzada {
 
     private static int literal(Random random, int n) {
         return (random.nextBoolean() ? 1 : -1) * (1 + random.nextInt(n));
+    }
+
+    private static boolean satisface(Formula formula, boolean[] asignacion) {
+        for (int[] clausula : formula.clausulas) {
+            boolean ok = false;
+            for (int literal : clausula) {
+                ok |= literal > 0 ? asignacion[literal - 1] : !asignacion[-literal - 1];
+            }
+            if (!ok) return false;
+        }
+        return true;
     }
 }

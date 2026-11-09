@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public final class FormulaService {
+    /** Analiza texto en el formato de instancias del proyecto. */
     public static Formula parse(String texto) {
         String[] lineas = texto.lines().map(String::trim)
                 .filter(s -> !s.isEmpty() && !s.startsWith("#")).toArray(String[]::new);
@@ -24,12 +25,15 @@ public final class FormulaService {
         return new Formula(n, cs);
     }
 
+    /** Carga y analiza una instancia desde disco. */
     public static Formula desdeArchivo(Path path) throws IOException {
         return parse(Files.readString(path));
     }
 
-    public static List<String> validar3CNF(Formula f) {
+    /** Separa errores invalidantes de avisos permitidos, como repeticiones. */
+    public static ResultadoValidacion validar3CNF(Formula f) {
         List<String> errores = new ArrayList<>();
+        List<String> avisos = new ArrayList<>();
         if (f.variables < 1) errores.add("El número de variables debe ser positivo.");
         for (int i = 0; i < f.clausulas.size(); i++) {
             int[] c = f.clausulas.get(i);
@@ -40,13 +44,14 @@ public final class FormulaService {
                 if (Math.abs(x) > f.variables) errores.add("Variable fuera de rango en cláusula " + (i + 1) + ": " + x);
                 for (int y : c) if (x == -y && x != 0) tautologia = true;
             }
-            if (tautologia) errores.add("Aviso: cláusula " + (i + 1) + " es tautología.");
+            if (tautologia) avisos.add("Cláusula " + (i + 1) + " es tautología.");
             if (Arrays.stream(c).distinct().count() < c.length)
-                errores.add("Aviso: cláusula " + (i + 1) + " contiene literales repetidos (válido).");
+                avisos.add("Cláusula " + (i + 1) + " contiene literales repetidos (válido).");
         }
-        return errores;
+        return new ResultadoValidacion(errores, avisos);
     }
 
+    /** Serializa una fórmula al formato simple del proyecto. */
     public static String texto(Formula f) {
         StringBuilder b = new StringBuilder(f.variables + " " + f.clausulas.size()).append('\n');
         for (int[] c : f.clausulas) b.append(c[0]).append(' ').append(c[1]).append(' ').append(c[2]).append('\n');

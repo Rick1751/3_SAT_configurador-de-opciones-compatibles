@@ -1,7 +1,8 @@
 # Fase 3: implementación
 
 `Formula` contiene `int variables` y `List<int[]>`; cada literal es un entero
-con signo. `Resultado` devuelve SAT, asignación, nodos, asignaciones y tiempo.
+con signo. `Resultado` devuelve SAT, asignación, nodos, asignaciones, tiempo y
+profundidad máxima de recursión.
 `FormulaService` parsea y valida; `SolverService` verifica, enumera y poda;
 `Generador` crea instancias reproducibles; `Benchmark` escribe CSV; `Main`
 orquesta el menú.
@@ -20,4 +21,5 @@ orquesta el menú.
 | Tautología | `2 1 / 1 -1 2` | aviso |
 
 La clase `Pruebas` compara ambos solvers en 200 fórmulas aleatorias pequeñas y
-comprueba las asignaciones devueltas.
+comprueba las asignaciones devueltas. `VerificacionEquivalencia` amplía esto a
+500 fórmulas; `VerificacionAvanzada` cubre 2-SAT y 100 reducciones.

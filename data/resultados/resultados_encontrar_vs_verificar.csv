@@ -1,6 +1,5 @@
-n,tiempo_resolver_ns,tiempo_verificar_ns
-8,11377,2717
-10,8446,1022
-12,10020,718
-14,16288,835
-16,18218,875
+n,m,familia,tiempo_encontrar_fb_ns,tiempo_encontrar_bt_ns,tiempo_verificar_ns
+12,51,sat_plantada,14429,85173,20397
+16,68,sat_plantada,1029083,17461,13490
+20,85,sat_plantada,10585132,63237,8651
+22,93,sat_plantada,106208330,3215787,73863

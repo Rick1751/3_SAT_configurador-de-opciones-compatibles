@@ -1,95 +1,81 @@
-# Verificación técnica y académica
+# Verificación de corrección
 
-Fecha de ejecución: 2026-11-08. Directorio auditado: `tema2-3sat/`.
+Fecha de ejecución: 2026-11-08. Las cifras de benchmark citadas aquí provienen
+de `data/resultados/` generado por la ejecución de la opción 11.
 
-## Entorno
+## Tabla de evidencias
 
-| Herramienta | Salida observada | Estado |
-|---|---|---|
-| `java -version` | OpenJDK 27.0.1 | FALLA: no es Java 17 |
-| `javac -version` | 27.0.1 | FALLA: no es Java 17 |
-| `python --version` | Python 3.14.9 | OK |
-| `dot -V` | Graphviz 16.1.0 | OK |
-| `plantuml -version` | comando no encontrado | NO VERIFICADO |
+| ID | Verificación | Comando | Estado | Evidencia real |
+|---|---|---|---|---|
+| A1 | Higiene | `git ls-files \| grep -E '\.class\|__pycache__\|build/'` | CORREGIDO | Sin resultados después de retirar artefactos del índice |
+| A2 | Compilación Java 17 | `javac --release 17 -Xlint:all ...` | OK | Compiló sin errores ni warnings |
+| A3 | Pruebas | `./tests/correr_todas.sh` | OK | 200 casos; 500 equivalencias; 200 2-SAT y 100 reducciones |
+| B1 | Solver sin fórmula | `printf '6\n13\n' \| java -cp build tema2.Main` | CORREGIDO | Mensaje amigable, sin stack trace ni `null` |
+| B2 | Fórmula inválida | opción 2 + `invalida.txt` + opción 6 | CORREGIDO | Explica cláusula de 2 literales y literal 0 |
+| B3 | Repeticiones | opción 1 + `1 1 -2` + opción 4 | CORREGIDO | `FÓRMULA 3-CNF VÁLIDA` y aviso separado |
+| B4 | Entrada no numérica | `printf 'abc\n99\n\n13\n' ...` | CORREGIDO | `Ingrese un número entero.` y reintento |
+| C1 | Fuerza bruta | inspección de `SolverService` | CORREGIDO | Evalúa máscara directamente; solo crea asignación al hallar SAT |
+| C2 | Profundidad | `java -ea ... VerificacionEquivalencia` | OK | `Resultado` incluye `profundidadMaxima` |
+| D1 | Benchmark | opción 11 con `timeout 180` | OK | Terminó dentro de 180 s con progreso por configuración |
+| D2 | CSV | `wc -l data/resultados/*.csv` | OK | 180 mediciones crudas, 36 filas resumen y CSV auxiliares |
+| E1 | Gráficas | `python services/charts-service/generar_graficas.py` | OK | PNG 01–07 y 06b no vacíos (8 archivos) |
+| E2 | Tablas | `python services/charts-service/generar_tablas_md.py` | OK | Generó `docs/tablas_generadas.md` sin dependencia `tabulate` |
+| F1 | PlantUML | `plantuml -checkonly $(find diagramas -name '*.puml')` | NO VERIFICADO | `plantuml` no está instalado en este entorno |
+| G1 | Documentación | comprobación de archivos y enlaces | CORREGIDO | Informe de 15 apartados, anexo y enlaces creados |
+| H1 | NotebookLM | inspección de `docs/notebooklm_guia.md` | OK | Plantillas, preguntas y capturas sin respuestas inventadas |
 
-Comando sugerido, no ejecutado: `sudo pacman -S --needed jdk17-openjdk python python-pip plantuml graphviz tree`.
-
-## Tabla resumen
-
-| ID | Verificación | Estado | Evidencia |
-|---|---|---|---|
-| A1 | Herramientas | CORREGIDO | Python y Graphviz disponibles; Java 27 y PlantUML pendientes del entorno |
-| B1 | Estructura | OK | Carpetas y archivos esperados presentes; `.venv` se excluye del árbol |
-| C1 | Compilación `javac -Xlint:all` | OK | Compilación sin errores ni warnings |
-| C2 | Dependencias Java | OK | Solo imports `java.*`; sin Maven, Gradle ni JAR |
-| C3 | Solvers externos/UI/servidor | OK | Búsquedas sin coincidencias en código |
-| C4 | Script y menú | OK | `run.sh` ejecutable; menú inicia y captura entradas inválidas |
-| D1 | Pruebas existentes | OK | 200 casos aleatorios y validaciones básicas |
-| D2 | Equivalencia 3-SAT | OK | 500/500 coincidencias; 316 SAT, 184 UNSAT, 0 discrepancias |
-| D3 | Casos límite | OK | Repetición, tautología, longitudes, cero y rango validados |
-| D4 | 2-SAT | OK | 200 casos contra fuerza bruta; n=100000 en 65–104 ms observados |
-| D5 | Reducción SAT→3-SAT | OK | 100 casos, equivalencia SAT preservada |
-| D6 | Poda y medición | OK | Backtracking cuenta nodos; `nanoTime` está dentro de cada solver |
-| E1 | Menú 1–13 | CORREGIDO | Se añadió manejo de entrada no numérica, confirmación n>25 y tabla de complejidad |
-| F1 | CSV benchmark | OK | 180 filas: 3 familias, 2 algoritmos, 6 tamaños, 5 repeticiones |
-| F2 | Resúmenes | OK | 36 grupos con mediana, promedio y desviación calculadas |
-| F3 | Gráficas | OK | 7 PNG generados desde `.venv`, incluidos desde `/tmp` |
-| G1 | PlantUML | NO VERIFICADO | Falta instalar `plantuml` en el entorno |
-| H1 | Documentación | CORREGIDO | Se añadieron prueba manual, decisión/búsqueda y datos reales del CSV |
-| I1 | NotebookLM | OK | Solo plantillas; no hay respuestas ni capturas inventadas |
-
-## Comandos ejecutados y resultados resumidos
+## Versiones reales
 
 ```text
-rm -rf out && mkdir out && javac -Xlint:all -d out $(find services tests -name '*.java')
--> OK
-java -ea -cp out tema2.Pruebas
--> 200 pruebas de equivalencia y validaciones básicas: OK
-java -ea -cp out tema2.VerificacionEquivalencia
--> total=500 coincidencias=500 discrepancias=0 SAT=316 UNSAT=184
-java -ea -cp out tema2.VerificacionAvanzada
--> 2SAT=200, reducción=100, n=100000 tiempo_ms=65-104
-printf '11\n13\n' | java -cp out tema2.Main
--> CSV generados
-python services/charts-service/generar_graficas.py
--> 7 PNG generados; cada archivo es PNG no vacío
+java -version  -> OpenJDK 27.0.1
+javac -version -> 27.0.1
+python --version -> Python 3.14.9
+plantuml -version -> comando no encontrado
+dot -V -> graphviz 16.1.0
 ```
 
-Los CSV actuales tienen tiempos positivos, seis tamaños de `n` y cinco
-repeticiones por combinación. El resumen calcula la mediana sobre cada grupo,
-no usa texto de relleno. La gráfica de tamaño/tiempo usa escala logarítmica.
+Aunque el compilador instalado es Java 27, el comando verificado usa
+`javac --release 17`, por lo que las clases no usan APIs posteriores a Java 17.
 
-## Problemas encontrados y correcciones
+## Pruebas funcionales
 
-1. Faltaban 2-SAT y reducción SAT→3-SAT: se implementaron SCC de Kosaraju
-   iterativas y la reducción polinomial con variables auxiliares.
-2. El menú no capturaba errores al leer la opción: la lectura quedó dentro del
-   bloque de manejo de errores.
-3. El configurador no conservaba nombres: ahora imprime nombres legibles.
-4. No había confirmación para fuerza bruta grande: se añadió para `n > 25`.
-5. El benchmark escribía resúmenes vacíos: ahora calcula mediana, promedio,
-   desviación y memoria estimada, además de las tres familias.
-6. El script generaba solo tres gráficas: ahora genera las siete solicitadas
-   cuando existen sus CSV.
+```text
+200 pruebas de equivalencia y validaciones básicas: OK
+total=500 coincidencias=500 discrepancias=0 SAT=316 UNSAT=184
+2SAT=200, reducción=100, n=100000 tiempo_ms=70.184
+```
 
-## Pendientes que solo puede completar el estudiante
+El benchmark final tiene familias `aleatoria_4_26`, `sat_plantada` y
+`unsat_peor_caso`, seis tamaños de 12 a 22 y cinco repeticiones por
+configuración. La familia UNSAT contiene las ocho cláusulas que prohíben las
+combinaciones de las tres últimas variables, dejando libre el prefijo.
 
-- Instalar/verificar Java 17 y PlantUML en el entorno de entrega.
-- Ejecutar `plantuml -checkonly` y generar PNG de diagramas.
-- Completar capturas y respuestas reales del NotebookLM.
-- Redactar la reflexión grupal de 150–200 palabras.
-- Confirmar edición/páginas exactas de las referencias bibliográficas.
+El CSV crudo tiene las columnas `bytes_asignados`, `profundidad_maxima`,
+`memoria_analitica_bytes` y `timeout`. La medición de memoria usa
+`ThreadMXBean#getThreadAllocatedBytes`; la generación, el parseo y la escritura
+están fuera del cronómetro del solver.
 
-## Evaluación estimada sobre 20 puntos
+La escalabilidad 2-SAT se midió hasta n=1.000.000; el CSV registra
+2.216.921.648 ns para esa configuración.
 
-| Criterio | Puntos estimados | Justificación |
-|---|---:|---|
-| Fundamentación | 1.8/2 | Incluye NP-completitud, Cook–Levin, 2-SAT y decisión/búsqueda |
-| Diseño/pseudocódigo/prueba | 2.5/3 | Pseudocódigo y prueba manual incluidos; diagramas requieren PlantUML |
-| Implementación | 3.5/4 | Solvers, menú, generador y servicios funcionan; 2-SAT/reducción recién integrados |
-| Correctitud/pruebas | 2/2 | 500 equivalencias, 200 2-SAT, 100 reducciones y casos básicos |
-| Complejidad | 3.5/4 | Análisis consistente; falta evidencia renderizada de PlantUML |
-| Experimentación | 1.8/2 | CSV reales, repeticiones, mediana y siete gráficas |
-| NotebookLM | 0.5/1 | Guía completa, faltan evidencias del cuaderno compartido |
-| Defensa | 1.8/2 | 15 preguntas y respuestas breves |
-| **Total estimado** | **17.4/20** | Riesgos principales: Java 17/PlantUML y anexos NotebookLM |
+## Problemas corregidos
+
+1. Validación separada en errores y avisos mediante `ResultadoValidacion`.
+2. Rechazo explícito de fórmulas inválidas antes de resolver.
+3. Entrada numérica con reintento y mensajes sin excepciones internas.
+4. Fuerza bruta sin `new boolean[n]` por máscara.
+5. Profundidad máxima de backtracking.
+6. Configurador con nombres en restricciones (`-OLED Bateria Cargador`).
+7. Benchmark con calentamiento, familias, repeticiones, memoria y resúmenes.
+8. Gráficas basadas en medianas y columnas reales.
+9. Tablas Markdown generadas automáticamente.
+10. `.gitignore`, compilación `--release 17`, informe técnico y anexo.
+
+## Pendientes del estudiante
+
+- Instalar PlantUML y ejecutar `plantuml -checkonly ...` y el render en
+  `diagramas/render/`.
+- Completar capturas, respuestas y reflexión real de NotebookLM.
+- Añadir integrantes y datos de portada.
+- Confirmar edición y páginas de referencias bibliográficas.
+- Generar el PDF final si se requiere una herramienta externa.

@@ -9,6 +9,8 @@
 - [Informe técnico](informe_tecnico_outline.md)
 - [Guía NotebookLM](notebooklm_guia.md)
 - [Verificación](VERIFICACION.md)
+- [Informe técnico](informe_tecnico.md)
+- [Tablas generadas](tablas_generadas.md)
 - [Glosario](../text/glosario.md)
 - [Referencias](../text/referencias.md)
 - [Defensa](../text/defensa_preguntas.md)

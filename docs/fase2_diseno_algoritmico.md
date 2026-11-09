@@ -28,7 +28,19 @@ rellena las cortas. 2-SAT modela cada literal como nodo y cada cláusula
 ## Prueba manual (n=3, m=4)
 
 Para `(x1∨x2∨x3) ∧ (¬x1∨x2∨x3) ∧ (x1∨¬x2∨x3) ∧ (x1∨x2∨¬x3)`,
-la tabla de las ocho asignaciones muestra que solo `FFF` falla las cuatro
-cláusulas simultáneamente; por ejemplo `VVV` satisface todas. El recorrido
-backtracking fija `x1=F`, después `x2=F`, y poda cuando una cláusula queda
-totalmente falsa; explora la rama `x2=V` y finalmente encuentra `x3=V`.
+la tabla de verdad tiene siete asignaciones SAT y una UNSAT:
+
+| x1 | x2 | x3 | Resultado |
+|---|---|---|---|
+| F | F | F | UNSAT |
+| F | F | V | SAT |
+| F | V | F | SAT |
+| F | V | V | SAT |
+| V | F | F | SAT |
+| V | F | V | SAT |
+| V | V | F | SAT |
+| V | V | V | SAT |
+
+Con el orden de variables del programa, backtracking visita cinco nodos hasta
+encontrar `FFV`: raíz, `x1=F`, `x2=F`, la hoja podada `x3=F` y la hoja SAT
+`x3=V`. La poda ocurre porque la primera cláusula queda totalmente falsa.

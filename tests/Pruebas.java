@@ -13,8 +13,9 @@ public final class Pruebas {
             if (b.asignacion() != null) assert SolverService.verificar(f, b.asignacion());
         }
         Formula repetida = new Formula(2, List.of(new int[]{1, 1, -2}));
-        assert FormulaService.validar3CNF(repetida).stream().anyMatch(s -> s.contains("repetidos"));
-        assert FormulaService.validar3CNF(new Formula(1, List.of(new int[]{1, 2, 1}))).stream().anyMatch(s -> s.contains("fuera"));
+        assert FormulaService.validar3CNF(repetida).avisos().stream().anyMatch(s -> s.contains("repetidos"));
+        assert FormulaService.validar3CNF(new Formula(1, List.of(new int[]{1, 2, 1}))).errores().stream()
+                .anyMatch(s -> s.contains("fuera"));
         System.out.println("200 pruebas de equivalencia y validaciones básicas: OK");
     }
 }
