@@ -3,7 +3,7 @@
 ## 1. Portada
 
 **[Nombre Apellido] — [Nombre Apellido]**  
-Ingeniería en Ciencias de la Computación, [curso], [fecha].  
+Ingeniería en Ciencias de datos, [GR2CD], [fecha].  
 Proyecto Integrador — Unidad 2: Complejidad Computacional.
 
 ## 2. Introducción
