@@ -1,7 +1,7 @@
 @startuml
+skinparam defaultFontName Monospaced
 title Reducción SAT a 3-SAT
 legend
-<font:monospaced>
 Entrada: CNF con cláusulas de tamaño variable
 Salida: fórmula 3-CNF equisatisfacible
 01. para cada cláusula c
@@ -13,6 +13,5 @@ Salida: fórmula 3-CNF equisatisfacible
 07.   agregar las ternas resultantes
 08. devolver fórmula; auxiliares crecen linealmente con |c|
 Dominante: visitar todos los literales, Θ(sum |c|).
-</font>
 endlegend
 @enduml

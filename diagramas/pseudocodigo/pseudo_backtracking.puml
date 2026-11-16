@@ -1,7 +1,7 @@
 @startuml
+skinparam defaultFontName Monospaced
 title Backtracking con poda
 legend
-<font:monospaced>
 Entrada: F 3-CNF válida, posición i y asignación parcial
 Salida: asignación SAT o UNSAT
 01. nodos <- nodos + 1
@@ -13,6 +13,5 @@ Salida: asignación SAT o UNSAT
 07. si BACKTRACK(i+1) es verdadero, devolver verdadero
 08. desmarcar xi y devolver falso
 Peor caso: 2^(n+1)-1 nodos; coste por nodo O(m).
-</font>
 endlegend
 @enduml

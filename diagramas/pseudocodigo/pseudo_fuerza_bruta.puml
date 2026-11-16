@@ -1,7 +1,7 @@
 @startuml
+skinparam defaultFontName Monospaced
 title Fuerza bruta por máscara
 legend
-<font:monospaced>
 Entrada: F 3-CNF válida con n <= 62
 Salida: Resultado SAT/UNSAT
 01. total <- 2^n
@@ -13,6 +13,5 @@ Salida: Resultado SAT/UNSAT
 07.   devolver asignación SAT
 08. devolver UNSAT tras explorar 2^n máscaras
 Dominante: línea 02 por 2^n y líneas 03-04 por m; Θ(2^n*m).
-</font>
 endlegend
 @enduml

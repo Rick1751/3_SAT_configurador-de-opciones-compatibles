@@ -80,7 +80,7 @@ def grafica_encontrar(datos):
         eje.plot(grupo["n"], grupo["mediana_encontrar_bt_ns"], "s-", label="Backtracking")
         eje.plot(grupo["n"], grupo["mediana_verificar_ns"], "^-", label="Verificar")
         fila = grupo.sort_values("n").iloc[-1]
-        eje.annotate(f"FB/verificar={fila['mediana_encontrar_fb_ns'] / fila['mediana_verificar_ns']:.1f}x",
+        if familia != "unsat_peor_caso": eje.annotate(f"FB/verificar={fila['mediana_encontrar_fb_ns'] / fila['mediana_verificar_ns']:.1f}x",
                      (fila["n"], fila["mediana_encontrar_fb_ns"]))
         eje.set_title(familia)
         eje.set_xlabel("Variables (n)")

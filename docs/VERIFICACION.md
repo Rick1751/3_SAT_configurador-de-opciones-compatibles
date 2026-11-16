@@ -29,8 +29,7 @@ n=14 fuerza=16384 backtracking=32767
 ```
 
 En `resultados_encontrar_vs_verificar.csv`, para n=22 las razones fuerza
-bruta/verificación son 9.571x (SAT plantada), 956.722x (aleatoria) y
-30.569.768x (UNSAT peor caso). La verificación usa `verificarSinValidar`,
+bruta/verificación son 9.571x (SAT plantada), 956.722x (aleatoria). En UNSAT no hay certificado corto, por eso no se reporta razón. La verificación usa `verificarSinValidar`,
 20.000 llamadas de calentamiento y 100.000 llamadas
 cronometradas por instancia.
 

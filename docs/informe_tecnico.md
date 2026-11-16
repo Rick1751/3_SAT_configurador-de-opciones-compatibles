@@ -42,7 +42,6 @@ y poda cuando una cláusula queda totalmente falsa. El verificador evalúa tres
 literales por cláusula. Los pseudocódigos completos están en
 `../diagramas/pseudocodigo/`.
 
-![Árbol de decisión](../diagramas/render/complejidad_origen_2n.png)
 
 ## 7. Estructuras de datos
 

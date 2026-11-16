@@ -1,7 +1,7 @@
 @startuml
+skinparam defaultFontName Monospaced
 title Verificar asignación
 legend
-<font:monospaced>
 Entrada: F válida y asignación a de tamaño n
 Salida: SAT o índice de cláusula falsa
 01. comprobar que |a| = n
@@ -13,6 +13,5 @@ Salida: SAT o índice de cláusula falsa
 07.   si no satisfecha, devolver índice de c
 08. devolver -1 (todas satisfechas)
 Operación dominante: 3m evaluaciones, O(m).
-</font>
 endlegend
 @enduml

@@ -1,7 +1,7 @@
 @startuml
+skinparam defaultFontName Monospaced
 title Validar 3-CNF
 legend
-<font:monospaced>
 Entrada: fórmula F con n variables y m cláusulas
 Salida: errores y avisos
 01. errores <- []; avisos <- []
@@ -13,6 +13,5 @@ Salida: errores y avisos
 07.   detectar repetición y tautología; agregar aviso
 08. devolver ResultadoValidacion(errores, avisos)
 Operación dominante: recorrer cláusulas, Θ(m).
-</font>
 endlegend
 @enduml
