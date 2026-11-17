@@ -2,7 +2,7 @@
 
 ## Pregunta 01
 
-**¿Qué define una fórmula 3-CNF?**
+**¿Qué es 3-SAT y qué diferencia hay con SAT general?**
 
 ![Pregunta 01](capturas/pregunta1.png)
 
@@ -20,7 +20,7 @@ Tho...”. Página exacta: **no visible en la captura**.
 
 ## Pregunta 02
 
-**¿Cómo explica Cook–Levin la importancia de SAT?**
+**¿Por qué 3-SAT es NP-completo? Explica la reducción desde SAT.**
 
 ![Pregunta 02](capturas/pregunta2.png)
 ![Pregunta 02 (parte 2)](capturas/pregunta2_parte2.png)
@@ -38,15 +38,15 @@ algoritmos, Tho...”. Página exacta: **no visible en la captura**.
 
 ## Pregunta 03
 
-**¿Por qué 3-SAT es NP-completo?**
+**¿Por qué 2-SAT es polinomial pero 3-SAT no se conoce que lo sea?**
 
 ![Pregunta 03](capturas/pregunta3.png)
 
-**Respuesta de NotebookLM:** La parte legible de la respuesta explica que la
-fórmula transformada conserva la satisfacibilidad de la cláusula original y que
-la construcción usa un número de variables y cláusulas proporcional al tamaño
-de la entrada, por lo que se ejecuta en tiempo polinomial. Con ello concluye
-que 3-SAT es NP-completo.
+**Respuesta de NotebookLM:** 2-SAT se modela como un grafo de implicaciones y
+es satisfacible si ninguna variable `x` queda en la misma componente fuertemente
+conexa que `¬x`. Se resuelve en tiempo lineal `O(V+E)`. Una cláusula de tres
+literales no se reduce a implicaciones binarias; como 3-SAT es NP-completo, un
+algoritmo polinomial implicaría `P=NP`.
 
 **Fuente citada:** Cuaderno compartido **“Estructura de Datos y Algoritmos II
 Syllabus”**. Marcadores visibles: **[3], [5], [6] y [7]**. En el panel
@@ -56,8 +56,7 @@ algoritmos, Tho...”. Página exacta: **no visible en la captura**.
 
 ## Pregunta 04
 
-**¿Cuál es la complejidad de la búsqueda exhaustiva y del backtracking, y de
-dónde sale?**
+**¿Cuál es la complejidad de la búsqueda exhaustiva y del backtracking, y de dónde sale?**
 
 ![Pregunta 04](capturas/pregunta4.png)
 
@@ -74,7 +73,7 @@ Tho...”. Página exacta: **no visible en la captura**.
 
 ## Pregunta 05
 
-**¿Por qué verificar es más barato que encontrar?**
+**¿Por qué verificar es más barato que encontrar? ¿Qué relación tiene con NP?**
 
 ![Pregunta 05](capturas/pregunta5.png)
 
