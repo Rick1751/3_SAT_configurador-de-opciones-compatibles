@@ -2,7 +2,7 @@
 
 ## 1. Portada
 
-**[Nombre Apellido] — [Nombre Apellido]**  
+**Nombres:** Alan Tingo, Carlos Rojas, Esteban Valenzuela, Ricardo Leon
 Ingeniería en Ciencias de datos, [GR2CD], [fecha].  
 Proyecto Integrador — Unidad 2: Complejidad Computacional.
 
